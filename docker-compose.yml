@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  reader:
+    image: python:3.6.6
+    container_name: job_fetch
+    volumes:
+      - '/home/jvazquez/workspace/job_fetch:/app'
+    environment:
+      - DB_USER=development
+      - DB_PASS=development
+      - DB_HOST=db
+      - DB_NAME=job_fetch
+    links:
+      - cache:cache
+      - storage:db
+  db:
+    container_name: job_fetch_db
+    image: postgres:9.5.2
+    volumes:
+      - '/home/jvazquez/docker_data_volumes/job_fetch/postgresql:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_USER=development
+      - POSTGRES_PASSWORD=development
+      - POSTGRES_DB=job_fetch
+  cache:
+    image: redis:3.0.6
+    volumes:
+      - '/home/jvazquez/workspace/docker_data_volumes/job_fetch/redis:/data'
+networks:
+  default:
+    external:
+      name: empresas_development
