@@ -26,6 +26,8 @@ services:
     image: redis:3.0.6
     volumes:
       - '/home/jvazquez/workspace/docker_data_volumes/job_fetch/redis:/data'
+  queue:
+    image: zeromq/zeromq:v4.0.5
 networks:
   default:
     external:

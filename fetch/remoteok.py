@@ -5,7 +5,6 @@ import time
 from datetime import datetime
 
 import feedparser
-import redis
 
 
 def get_rules() -> dict:
